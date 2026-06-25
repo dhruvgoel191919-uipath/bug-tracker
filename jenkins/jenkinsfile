@@ -5,10 +5,15 @@ pipeline {
         }
     }
 
+    environment {
+        GOCACHE = "${WORKSPACE}/.gocache"
+    }
+
     stages {
         stage('Unit Tests') {
             steps {
                 dir('bugtracker-backend') {
+                    sh 'mkdir -p $GOCACHE'
                     sh 'go version'
                     sh 'go test -v ./...'
                 }
