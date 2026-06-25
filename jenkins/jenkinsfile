@@ -1,10 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'golang:1.24'
+        }
+    }
 
     stages {
-        stage('Unit tests - backend') {
+        stage('Unit Tests') {
             steps {
                 dir('bugtracker-backend') {
+                    sh 'go version'
                     sh 'go test -v ./...'
                 }
             }
